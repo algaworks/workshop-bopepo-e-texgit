@@ -1,0 +1,42 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+	
+	<f:metadata>
+		<f:viewAction action="#{novaCobrancaBean.inicializar}"/>
+	</f:metadata>
+
+	<ui:define name="titulo">Nova cobrança</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Nova cobrança</h1>
+		
+		<h:form>
+			<p:messages autoUpdate="true" closable="true"/>
+			
+			<p:toolbar style="margin-top: 20px">
+				<f:facet name="left">
+					<p:commandButton value="Emitir" ajax="false" actionListener="#{novaCobrancaBean.emitir}"/>
+				</f:facet>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				<p:outputLabel value="Valor a cobrar do cliente:" for="valor"/>
+				<p:inputText id="valor" size="10" styleClass="moeda" value="#{novaCobrancaBean.cobranca.valor}">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+				</p:inputText>
+				
+				<p:outputLabel value="Esta cobrança vence em:" for="dataVencimento"/>
+				<p:calendar id="dataVencimento" size="10" pattern="dd/MM/yyyy" value="#{novaCobrancaBean.cobranca.dataVencimento}"/>
+				
+				<p:outputLabel value="Nome cliente:" for="nomeCliente"/>
+				<p:inputText id="nomeCliente" size="40" value="#{novaCobrancaBean.cobranca.sacado.nome}"/>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
